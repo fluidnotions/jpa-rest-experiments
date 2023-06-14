@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "b0246bdf-e03f-4902-9311-a16b0cb2fea2",
+		"name": "spring data REST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19327152"
+	},
+	"item": [
+		{
+			"name": "custom query",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers/search/findByLikeFirstNameOrEmail?email=patricia.johnson@sakilacustomer.org&firstName=Pat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"search",
+						"findByLikeFirstNameOrEmail"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "patricia.johnson@sakilacustomer.org"
+						},
+						{
+							"key": "firstName",
+							"value": "Pat"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "patricia.johnson@sakilacustomer.org",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find by and",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers/search/findByFirstNameAndEmail?firstName=Patricia&email=patricia.johnson@sakilacustomer.org",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"search",
+						"findByFirstNameAndEmail"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Patricia"
+						},
+						{
+							"key": "email",
+							"value": "patricia.johnson@sakilacustomer.org"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find by or",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers/search/findByFirstNameOrEmail?firstName=Patricia&email=patricia.johnson@sakilacustomer.org",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"search",
+						"findByFirstNameOrEmail"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Patricia"
+						},
+						{
+							"key": "email",
+							"value": "patricia.johnson@sakilacustomer.org"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
