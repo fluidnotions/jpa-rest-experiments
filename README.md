@@ -1,5 +1,10 @@
 # jpa rest experiments - exposing jpa entities as rest resources with minimal code
 
+## Synopsis
+
+The combination of entity relational mapping (ORM) with complete relationships, and the auto-generation of rest endpoints, allows for a very powerful and flexible api with minimal code.
+Which is self documenting, and can be tested directly from the swagger docs.
+
 ## Overview
 
 * swagger rest api documentation available at http://localhost:8080/docs
@@ -10,3 +15,13 @@
 ## Deployment Heroku
 
 * Windows local db sync: $env:PGUSER = "postgres"; $env:PGPASSWORD = "xxxx"; heroku pg:push dvdrental xxxx --app jpa-rest-experiments
+* Linked to github repo, auto-deploy on push to master
+
+## Play with the API through the swagger docs
+
+[demo deployment](https://jpa-rest-experiments-84648631255c.herokuapp.com/docs)
+
+### TODO
+
+* Basic descriptions when needed via swagger
+* Exception messages displaying in response body
