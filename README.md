@@ -2,8 +2,9 @@
 
 ## Synopsis
 
-The combination of entity relational mapping (ORM) with complete relationships, and the auto-generation of rest endpoints, allows for a very powerful and flexible api with minimal code.
-Which is self documenting, and can be tested directly from the swagger docs.
+* The combination of entity relational mapping (ORM) with complete relationships, and the auto-generation of rest endpoints from CRUD repositories, allows for a very powerful and flexible textbook implementation of a REST API with minimal code.
+* Since it's self documenting, and can be tested directly from the swagger docs. There is no need to hardcode Dto models or map to them.
+* The generic search endpoint allows for searching on any entity field, the relational mapping pulls in joined entities, providing a complete response body.
 
 ## Overview
 
@@ -23,5 +24,5 @@ Which is self documenting, and can be tested directly from the swagger docs.
 
 ### TODO
 
-* Basic descriptions when needed via swagger
+* Basic descriptions when needed via swagger (eg: search-generic-criteria-controller has unimplemented aspects of it's request body
 * Exception messages displaying in response body
