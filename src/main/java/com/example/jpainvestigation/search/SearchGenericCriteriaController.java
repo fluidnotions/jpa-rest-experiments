@@ -4,6 +4,7 @@ package com.example.jpainvestigation.search;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -59,6 +60,7 @@ public class SearchGenericCriteriaController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Operation(summary = "criteria search on any entity", description = "Currently only supports eq within where request body. Projection is not implemented.")
     @PutMapping(value = "/search/{entity}", produces = "application/json", consumes = "application/json")
     public String search(@PathVariable String entity, @RequestBody Search search) throws JsonProcessingException {
         var entities = entityManager

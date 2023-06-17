@@ -24,5 +24,4 @@
 
 ### TODO
 
-* Basic descriptions when needed via swagger (eg: search-generic-criteria-controller has unimplemented aspects of it's request body
-* Exception messages displaying in response body
+* Exception messages not displaying in response body

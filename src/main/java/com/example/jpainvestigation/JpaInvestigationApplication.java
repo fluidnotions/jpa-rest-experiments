@@ -3,6 +3,11 @@ package com.example.jpainvestigation;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.License;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -38,6 +43,14 @@ public class JpaInvestigationApplication {
 	// Mixin class to exclude hibernateLazyInitializer property
 	@JsonIgnoreProperties({"hibernateLazyInitializer"})
 	private static abstract class HibernateMixin {}
+
+	@Bean
+	public OpenAPI customOpenAPI() {
+		return new OpenAPI()
+				.components(new Components())
+				.info(new Info().title("spring boot data rest, with generic criteria search").version("0.0.1")
+						.license(new License().name("[click here] (View how minimal the code that created this is, on github)").url("https://github.com/fluidnotions/jpa-rest-experiments")));
+	}
 
 
 }
