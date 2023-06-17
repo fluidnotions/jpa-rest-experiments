@@ -21,7 +21,3 @@
 ## Play with the API through the swagger docs
 
 [demo deployment](https://jpa-rest-experiments-84648631255c.herokuapp.com/docs)
-
-### TODO
-
-* Exception messages not displaying in response body
