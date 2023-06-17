@@ -48,8 +48,8 @@ public class JpaInvestigationApplication {
 	public OpenAPI customOpenAPI() {
 		return new OpenAPI()
 				.components(new Components())
-				.info(new Info().title("spring boot data rest, with generic criteria search").description("Expand any endpoint to use the 'Try it out' customizable tests. See generic criteria search at the bottom of the page (above schema section)").version("0.0.1")
-						.license(new License().name("[click here] (View how minimal the code that created this is, on github)").url("https://github.com/fluidnotions/jpa-rest-experiments")));
+				.info(new Info().title("spring boot data rest, with generic criteria search").description("Expand any endpoint to use the 'Try it out' customizable tests.").version("0.0.1")
+						.license(new License().name("[click here to view minimal code on github]").url("https://github.com/fluidnotions/jpa-rest-experiments")));
 	}
 
 
