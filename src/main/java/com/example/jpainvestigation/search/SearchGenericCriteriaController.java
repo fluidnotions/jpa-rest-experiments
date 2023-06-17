@@ -60,6 +60,15 @@ public class SearchGenericCriteriaController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Operation(summary = "get a list of entity names that can be used in search", description = "This is a list of all entities that are available to search. To find property values, to test search with. Check results from GET endpoints above")
+    @GetMapping(value = "/entities", produces = "application/json")
+    public List<String> getEntityNames(){
+        var entities = entityManager
+                .getMetamodel()
+                .getEntities();
+        return entities.stream().map(e -> e.getName().toLowerCase()).collect(Collectors.toList());
+    }
+
     @Operation(summary = "criteria search on any entity", description = "Currently only supports eq within where request body. Projection is not implemented.")
     @PutMapping(value = "/search/{entity}", produces = "application/json", consumes = "application/json")
     public String search(@PathVariable String entity, @RequestBody Search search) throws JsonProcessingException {
