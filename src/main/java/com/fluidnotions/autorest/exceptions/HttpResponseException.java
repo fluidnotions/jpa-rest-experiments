@@ -1,4 +1,4 @@
-package com.example.jpainvestigation.exceptions;
+package com.fluidnotions.autorest.exceptions;
 
 
 

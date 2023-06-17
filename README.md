@@ -21,3 +21,8 @@
 ## Play with the API through the swagger docs
 
 [demo deployment](https://jpa-rest-experiments-84648631255c.herokuapp.com/docs)
+
+## References
+
+* https://docs.spring.io/spring-data/rest/docs/current/reference/html/
+* https://springdoc.org/v2/

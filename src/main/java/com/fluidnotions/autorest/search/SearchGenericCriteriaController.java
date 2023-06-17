@@ -1,9 +1,11 @@
-package com.example.jpainvestigation.search;
+package com.fluidnotions.autorest.search;
 
-import com.example.jpainvestigation.exceptions.HttpResponseException;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.fluidnotions.autorest.exceptions.HttpResponseException;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -15,7 +17,9 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
@@ -25,6 +29,23 @@ import java.util.stream.Collectors;
 
 @RestController
 public class SearchGenericCriteriaController {
+
+    private static final Logger logger = LoggerFactory.getLogger(SearchGenericCriteriaController.class);
+
+    @Autowired
+    private EntityManager entityManager;
+
+    private ObjectMapper objectMapper() {
+        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+        @JsonIgnoreProperties({"hibernateLazyInitializer"})
+        record HibernateMixin() {
+        }
+
+        builder.mixIn(Object.class, HibernateMixin.class);
+        ObjectMapper objectMapper = builder.build();
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        return objectMapper;
+    }
 
     record Search(Where where, Optional<Projection> projection) {
         public void validate() {
@@ -55,23 +76,6 @@ public class SearchGenericCriteriaController {
     record Projection(Optional<Map<String, String>> include, Optional<Map<String, String>> exclude) {
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(SearchGenericCriteriaController.class);
-
-    @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Operation(summary = "get a list of entity names that can be used in search", description = "This is a list of all entities that are available to search. To find property values, to test search with. Check results from GET endpoints below", tags = {"1. search-generic-criteria-controller"})
-    @GetMapping(value = "/entities", produces = "application/json")
-    public List<String> getEntityNames() {
-        var entities = entityManager
-                .getMetamodel()
-                .getEntities();
-        return entities.stream().map(e -> e.getName().toLowerCase()).collect(Collectors.toList());
-    }
-
     @Operation(summary = "criteria search on any entity", description = "Currently only supports eq within where request body. Projection is not implemented.", tags = {"1. search-generic-criteria-controller"})
     @PutMapping(value = "/search/{entity}", produces = "application/json", consumes = "application/json")
     public String search(@PathVariable String entity, @RequestBody Search search) throws Exception {
@@ -87,19 +91,19 @@ public class SearchGenericCriteriaController {
         logger.debug("Entity: {}", entityType);
         if (entityType != null) {
             var results = searchEntities(entityType.getJavaType(), entityManager, search);
-            if(results.size() > 0){
+            if (results.size() > 0) {
                 return serializeEntityTypeList(results, entityType);
-            }else {
+            } else {
                 throw new HttpResponseException(HttpStatus.NO_CONTENT);
             }
-        }else {
+        } else {
             throw new HttpResponseException("No entity type '%s' found".formatted(entity), HttpStatus.BAD_REQUEST);
         }
     }
 
     private String serializeEntityTypeList(List<?> results, EntityType<?> entityType) throws JsonProcessingException {
         var javaTypeList = TypeFactory.defaultInstance().constructCollectionType(List.class, entityType.getJavaType());
-        var writer = objectMapper.writerFor(javaTypeList);
+        var writer = objectMapper().writerFor(javaTypeList);
         var json = writer.writeValueAsString(results);
         return json;
     }

@@ -1,1 +1,3 @@
 rootProject.name = 'jpa-investigation'
+include 'auto-rest'
+

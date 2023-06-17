@@ -1,4 +1,4 @@
-package com.example.jpainvestigation.exceptions;
+package com.fluidnotions.autorest.exceptions;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
